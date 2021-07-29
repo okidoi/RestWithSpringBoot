@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /target/
 /.classpath
 /.springBeans
@@ -6,12 +5,3 @@
 /.settings/
 /.gradle/
 /build/
-=======
-/target/
-/.classpath
-/.springBeans
-/.project
-/.settings/
-/.gradle/
-/build/
->>>>>>> branch 'master' of https://github.com/okidoi/RestWithSpringBoot.git
