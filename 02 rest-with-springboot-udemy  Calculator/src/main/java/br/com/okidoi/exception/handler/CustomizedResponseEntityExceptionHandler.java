@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.okidoi.exception.ExceptionResponse;
-import br.com.okidoi.exception.UnsuportedMathOperationException;
+import br.com.okidoi.exception.ResourceNofFoundException;
 
 @ControllerAdvice
 @Controller
@@ -29,7 +29,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	}
 	
 	
-	@ExceptionHandler(UnsuportedMathOperationException.class) //Captura minhas exceptions do tiop Unsuported Math Operation para tratar  
+	@ExceptionHandler(ResourceNofFoundException.class) //Captura minhas exceptions do tiop Unsuported Math Operation para tratar  
 	public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception ex, WebRequest request){
 		ExceptionResponse exceptionResponse = 
 				new ExceptionResponse(
