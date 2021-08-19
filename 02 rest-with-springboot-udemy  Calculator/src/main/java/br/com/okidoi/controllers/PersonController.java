@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.okidoi.model.Person;
+import br.com.okidoi.data.vo.PersonVO;
 import br.com.okidoi.services.PersonServices;
 
 @RestController
@@ -26,18 +26,18 @@ public class PersonController {
 	private PersonServices services;
 
 	@GetMapping(value = "/{id}")
-	public Person findById(@PathVariable(value = "id") Long id) throws Exception {
+	public PersonVO findById(@PathVariable(value = "id") Long id) throws Exception {
 		return services.findById(id);
 	}
 
 	@PostMapping
-	public Person create(@RequestBody Person person) throws Exception {
+	public PersonVO create(@RequestBody PersonVO person) throws Exception {
 
 		return services.create(person);
 	}
 
 	@PutMapping
-	public Person update(@RequestBody Person person) throws Exception {
+	public PersonVO update(@RequestBody PersonVO person) throws Exception {
 
 		return services.update(person);
 	}
@@ -50,7 +50,7 @@ public class PersonController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Person> findAll() throws Exception {
+	public List<PersonVO> findAll() throws Exception {
 
 		return services.findAll();
 

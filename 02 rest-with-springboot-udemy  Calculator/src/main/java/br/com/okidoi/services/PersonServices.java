@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.okidoi.converter.DozerConverter;
+import br.com.okidoi.data.vo.PersonVO;
 import br.com.okidoi.exception.ResourceNofFoundException;
 import br.com.okidoi.model.Person;
 import br.com.okidoi.repository.PersonRepository;
@@ -15,13 +17,16 @@ public class PersonServices {
 	@Autowired
 	PersonRepository repository;
 	
-	public Person create(Person person) {
-		return repository.save(person);
+	public PersonVO create(PersonVO person) {
+		
+		var entity = DozerConverter.parseObject(person, Person.class);
+		var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+		return vo;
 	}
 	
-	public Person update(Person person) {
+	public PersonVO update(PersonVO person) {
 		
-		Person entity = repository.findById(person.getId()).
+		var entity = repository.findById(person.getId()).
 				orElseThrow(() -> new ResourceNofFoundException("No records found for this ID"));
 		
 		entity.setFirstName(person.getFirstName());
@@ -29,7 +34,8 @@ public class PersonServices {
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
 		
-		return repository.save(entity);
+		var vo =  DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+		return vo;
 		
 	}	
 	
@@ -40,17 +46,17 @@ public class PersonServices {
 		repository.delete(entity);	
 		
 	}	
-	public List<Person> findAll() {
+	public List<PersonVO> findAll() {
 
-		return repository.findAll();
-
+		return DozerConverter.parseListObjects(repository.findAll(), PersonVO.class);
 		
 	}
 	
-	public Person findById(Long id) {
+	public PersonVO findById(Long id) {
 		
-		return repository.findById(id).
+		var entity = repository.findById(id).
 				orElseThrow(() -> new ResourceNofFoundException("No records found for this ID"));
+		return DozerConverter.parseObject(entity, PersonVO.class);
 		
 	}
 
